@@ -1,0 +1,98 @@
+<app-menu></app-menu>
+<p-toast></p-toast>
+<div class="container p-mt-4">
+
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <p-calendar inputId="basic" dateFormat="yy-mm-dd" [(ngModel)]="date"></p-calendar>
+            <button pButton pRipple label="Agregar apunte" icon="pi pi-plus" class="p-button-success p-ml-2"
+                (click)="newRecord()"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <h4 class="p-m-0">Litros totales: {{totalLiter}}</h4>
+        </ng-template>
+    </p-toolbar>
+
+
+    <p-table [value]="recs" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" dataKey="tempRecordId"
+        [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Se muestra del {first} al {last} de {totalRecords} apuntes"
+        [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h4 class="p-m-0">Apuntes de leche</h4>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" #box (keyup.enter)="onEnter(box.value)" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="p-text-center">#</th>
+                <th class="p-text-center">Fecha</th>
+                <th class="p-text-center">Mañana</th>
+                <th class="p-text-center">Tarde</th>
+                <th class="p-text-center">Tag</th>
+                <th class="p-text-center">Opciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rec let-ri="rowIndex">
+            <tr>
+                <td class="p-text-center">{{ri+1}}</td>
+                <td class="p-text-center">
+                    {{rec.tempRecordDate}}
+                </td>
+                <td class="p-text-center">
+                    {{rec.tempRecordMorning}}
+                </td>
+
+                <td class="p-text-center">
+                    {{rec.tempRecordAfternoon}}
+                </td>
+                <td class="p-text-center">
+                    <p-badge [value]="rec.tempRecordMorning == 0 || rec.tempRecordAfternoon == 0  ? 'Pendiente' : 'Completo'"
+                        [severity]="rec.tempRecordMorning == 0 || rec.tempRecordAfternoon == 0  ? 'danger': 'success'"
+                        styleClass="p-badge-danger p-mr-2">
+                    </p-badge>
+                </td>
+                <td class="p-text-center">
+                    <button pButton pRipple (click)="openNewRecord(rec)" icon="pi pi-pencil"
+                        class="p-button-success p-ml-2"></button>
+                    <button pButton pRipple icon="pi pi-trash" (click)="onDelete(rec.tempRecordId)"
+                        class="p-button-danger p-ml-2"></button>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+<p-dialog header="Apunte del: {{recEdit.tempRecordDate}}" [modal]="true" [draggable]="false" [resizable]="false"
+    [(visible)]="displayBasic" [style]="{width: '35vw'}" [baseZIndex]="10000" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-grid p-field">
+            <div class="p-col-6">
+                <label for="name">Mañana</label>
+                <p-inputNumber mode="decimal" [(ngModel)]="recEdit.tempRecordMorning" [showButtons]="true"
+                    inputId="minmax-buttons2" [min]="0" [max]="100">
+                </p-inputNumber>
+            </div>
+            <div class="p-col-6">
+                <label for="lastname">Tarde</label>
+                <p-inputNumber mode="decimal" [(ngModel)]="recEdit.tempRecordAfternoon" [showButtons]="true"
+                    inputId="minmax-buttons1" [min]="0" [max]="100">
+                </p-inputNumber>
+            </div>
+            <div class="p-col-12">
+                <label for="name">Observación</label>
+                <textarea [(ngModel)]="recEdit.tempRecordDescription" pInputTextarea></textarea>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="updateRecord()" label="Guardar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger">
+</p-confirmDialog>

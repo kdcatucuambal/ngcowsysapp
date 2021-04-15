@@ -1,0 +1,78 @@
+<p-toast></p-toast>
+<div class="p-d-flex p-jc-center p-pt-6">
+    <div class="p-col-12 p-sm-12 p-md-8 p-lg-7 p-xl-4">
+        <p-card class="p-text-center" header="INICIAR SESIÓN" subheader="ADMINISTRACIÓN DE VACAS" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <img alt="Card" src="https://wallpapercave.com/wp/wp2381382.jpg">
+            </ng-template>
+            <div class="p-fluid p-grid">
+                <div class="p-col-12">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input type="text" [(ngModel)]="user.email" pInputText placeholder="Inserte su usuario" required [ngClass]="{'ng-invalid ng-dirty': submitted && !user.email}">
+                    </div>
+                    <small class="p-error" *ngIf="submitted && !user.email">El usuario es requerido</small>
+                </div>
+                <div class="p-col-12">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+                        <input type="password" [(ngModel)]="user.password" pInputText placeholder="Inserte su contraseña" required [ngClass]="{'ng-invalid ng-dirty': submitted && !user.password}">
+                    </div>
+                    <small class="p-error" *ngIf="submitted && !user.password">La contraseña es requerida</small>
+                </div>
+                <div class="p-field p-col-12">
+                    <button (click)="onLogin()" icon="pi pi-check" iconPos="left" pButton pRipple type="button" label="Acceder" class="p-button-primary"></button>
+                </div>
+                <div class="p-field p-col-6">
+                    <button pButton pRipple type="button" label="¿Olvidó su contraseña?" class="p-button-link"></button>
+                </div>
+                <div class="p-field p-col-6">
+                    <button (click)="openNewUser()" pButton pRipple type="button" label="Registrarse" class="p-button-link"></button>
+                </div>
+            </div>
+            <ng-template pTemplate="footer">
+                COWSYSTEM
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+
+<p-dialog header="Registrar Usuario" [modal]="true" [draggable]="false" [resizable]="false" [(visible)]="displayBasic" [style]="{width: '35vw'}" [baseZIndex]="10000" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-grid p-field">
+            <div class="p-col-6">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" [(ngModel)]="userRegister.name" [ngClass]="{'ng-invalid ng-dirty': submittedRegister && !userRegister.name}" required autofocus />
+                <small class="p-error" *ngIf="submittedRegister && !userRegister.name">El nombre es requerido</small>
+            </div>
+            <div class="p-col-6">
+                <label for="lastname">Apellido</label>
+                <input type="text" pInputText [(ngModel)]="userRegister.lastname" [ngClass]="{'ng-invalid ng-dirty': submittedRegister && !userRegister.lastname}" id="lastname" required />
+                <small class="p-error" *ngIf="submittedRegister && !userRegister.lastname">El apellido es
+                    requerido</small>
+            </div>
+        </div>
+        <div class="p-field">
+            <label for="email">Correo</label>
+            <input type="email" pInputText id="email" [(ngModel)]="userRegister.email" [ngClass]="{'ng-invalid ng-dirty': submittedRegister && !userRegister.email}" required />
+            <small class="p-error" *ngIf="submittedRegister && !userRegister.email">El email es requerido</small>
+        </div>
+        <div class="p-field">
+            <label for="pass">Contraseña</label>
+            <input type="password" pInputText id="pass" [(ngModel)]="userRegister.password" [ngClass]="{'ng-invalid ng-dirty': submittedRegister && !userRegister.password}" required />
+            <small class="p-error" *ngIf="submittedRegister && !userRegister.password">La contraseña es
+                requerido</small>
+        </div>
+        <div class="p-field">
+            <label for="pass-confirm">Confirmación</label>
+            <input type="password" pInputText id="pass-confirm" [(ngModel)]="userRegister.cofirmPassword" [ngClass]="{'ng-invalid ng-dirty': submittedRegister && !userRegister.cofirmPassword}" required />
+            <small class="p-error" *ngIf="submittedRegister && !userRegister.cofirmPassword">La contraseña es
+                requerido</small>
+        </div>
+        <small class="p-error" *ngIf="submittedRegister && userRegister.cofirmPassword!==userRegister.password">La
+            contraseña no coinciden</small>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onRegister()" label="Guardar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

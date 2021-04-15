@@ -1,0 +1,70 @@
+<app-menu></app-menu>
+<p-toast></p-toast>
+<div class="container p-mt-4">
+    <div class="p-shadow-2 p-mx-0 p-px-0">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Agregar" [routerLink]="['/cows-create']" icon="pi pi-plus"
+                    class="p-button-success p-mr-2"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table #dt1 [value]="cows" [lazy]="true" (onLazyLoad)="loadCows($event)" [paginator]="true" [rows]="10"
+            [responsive]="true" [totalRecords]="totalRecords" [loading]="loading"
+            styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h4 class="p-m-0">Listado de vacas</h4>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #box (keyup.enter)="onEnter(box.value)" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="p-text-center">Código</th>
+                    <th class="p-text-center">Nombre</th>
+                    <th class="p-text-center">Raza</th>
+                    <th class="p-text-center">Adquisición</th>
+                    <th class="p-text-center">Precio</th>
+                    <th class="p-text-center">Estado</th>
+                    <th class="p-text-center">Opciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cow>
+                <tr>
+                    <td class="p-text-center">
+                        <button pButton pRipple type="button" [routerLink]="['/cows-view/', cow.cowId]" title="Ver vaca"
+                            label="{{cow.cowId}}" class="p-button-sm p-button-primary p-m-0 p-p-0 p-col-6"></button>
+                    </td>
+                    <td class="p-text-center">{{cow.cowName}}</td>
+                    <td class="p-text-center">{{cow.cowRace}}</td>
+                    <td class="p-text-center">{{cow.cowBuyDate}}</td>
+                    <td class="p-text-center">{{cow.cowPrice}}</td>
+                    <td class="p-text-center">
+                        <!-- <p-badge [value]="cow.cowActive ? 'ACTIVO' : 'INACTIVO'"
+                            [severity]="cow.cowActive ? 'success': 'danger'" styleClass="p-badge-danger p-mr-2">
+                        </p-badge> -->
+                        <button pButton pRipple type="button" title="Activar/Desactivar"
+                            label="{{cow.cowActive ? 'ACTIVO' : 'INACTIVO'}}" class="p-button-sm p-col-6 p-m-0 p-p-0"
+                            (click)="onActive(cow)"
+                            [ngClass]="cow.cowActive ? 'p-button-success': 'p-button-danger'"></button>
+                    </td>
+                    <td class="p-text-center">
+                        <button pButton pRipple type="button" [routerLink]="['/cows-edit/', cow.cowId]"
+                            title="Editar vaca" icon="pi pi-pencil"
+                            class="p-button-success p-button-sm p-mr-2"></button>
+                        <button pButton pRipple type="button" title="Eliminar" icon="pi pi-trash"
+                            class="p-button-danger p-button-sm" (click)="onDelete(cow.cowId)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <h6 class="p-m-0">Total de vacas: {{totalRecords}}</h6>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger">
+</p-confirmDialog>

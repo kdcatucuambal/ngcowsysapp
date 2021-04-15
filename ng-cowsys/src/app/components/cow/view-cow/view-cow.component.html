@@ -1,0 +1,80 @@
+<app-menu></app-menu>
+<div class="container">
+    <p-panel header="Datos de la vaca">
+        <div class="p-grid">
+            <div class="p-col-12 p-lg-4 p-p-0 p-m-0 p-d-flex p-ai-center">
+                <img src="https://wallpapercave.com/wp/wp2381382.jpg" class="p-col-12 p-shadow-4 p-p-0 p-m-0" alt="">
+            </div>
+            <div class="p-col-12 p-lg-8">
+
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-lg-6">
+                        <label for="name-cow">Nombre: </label>
+                        <input id="name-cow" [(ngModel)]="cow.cowName" type="text" placeholder="Nombre de la vaca"
+                            pInputText readonly>
+
+                    </div>
+                    <div class="p-field p-col-12 p-lg-6">
+                        <label for="race-cow">Raza: </label>
+                        <input id="race-cow" [(ngModel)]="cow.cowRace" type="text" placeholder="Raza de la vaca"
+                            pInputText readonly>
+
+                    </div>
+                    <div class=" p-field p-col-12 p-lg-6">
+                        <label for="birth-cow">Nacimiento: </label>
+                        <input id="race-bithdate" [(ngModel)]="cow.cowBirthDate" type="text"
+                            placeholder="Raza de la vaca" pInputText readonly>
+                    </div>
+                    <div class="p-field p-col-12 p-lg-6">
+                        <label for="buy-cow">Adquisición: </label>
+                        <input id="race-bithdate" [(ngModel)]="cow.cowBuyDate" type="text" placeholder="Raza de la vaca"
+                            pInputText readonly>
+
+                    </div>
+                    <div class="p-field p-col-12 p-lg-6">
+                        <label for="price-cow">Precio: </label>
+                        <input id="race-bithdate" [(ngModel)]="cow.cowPrice" type="text" placeholder="Raza de la vaca"
+                            pInputText readonly>
+
+                    </div>
+                    <div class="p-field p-col-12 p-lg-6">
+                        <label for="imagen-cow">Estado: </label>
+                        <input id="image-cow" [(ngModel)]="cow.cowActive" placeholder="Imagen URL de la vaca"
+                            type="text" readonly pInputText>
+                    </div>
+                    <div class="p-field p-col-12">
+                        <label for="cow-des">Descripción: </label>
+                        <textarea id="cow-des" [(ngModel)]="cow.cowDescription" readonly
+                            placeholder="Observación y/o descripción de la vaca" pInputTextarea></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </p-panel>
+
+    <p-table [value]="obs" styleClass="p-datatable-gridlines p-datatable-striped">
+        <ng-template pTemplate="caption">
+            <h4 class="p-m-0">Observaciones</h4>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Price</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-obs>
+            <tr>
+                <td>{{obs.observationId}}</td>
+                <td>{{obs.observationDate}}</td>
+                <td>{{obs.type.typeName}}</td>
+                <td>{{obs.observationDescription}}</td>
+                <td>{{obs.observationPrice}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

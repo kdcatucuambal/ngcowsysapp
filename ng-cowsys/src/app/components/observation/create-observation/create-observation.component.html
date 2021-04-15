@@ -1,0 +1,65 @@
+<app-menu></app-menu>
+
+<div class="container p-d-flex p-jc-center p-pt-6">
+    <div class="p-col-12 p-lg-8">
+        <p-panel>
+            <p-header>
+                {{setting.title}}
+            </p-header>
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="name-cow">Vaca: </label>
+                 
+                    <p-autoComplete *ngIf="setting.titleButton == 'Guardar'" [(ngModel)]="obs.cow" [suggestions]="cows"
+                        (completeMethod)="filterCountry($event)" field="cowName" [minLength]="1"
+                        placeholder="Busqueda por nombre" required autofocus [forceSelection]="true" readonly
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !obs.cow.cowName}"
+                        [emptyMessage]="'--> No hay registros'">
+                    </p-autoComplete>
+                    <input *ngIf="setting.titleButton == 'Actualizar'" readonly [(ngModel)]="obs.cow.cowName"
+                        type="text" pInputText />
+                    <small class="p-error" *ngIf="submitted && !obs.cow.cowName">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="race-cow">Tipo: </label>
+          
+
+                    <p-dropdown [options]="types" [(ngModel)]="obs.type" placeholder="Tipo de observación"
+                        optionLabel="typeName"></p-dropdown>
+                    <small class="p-error" *ngIf="submitted && !obs.type.typeName">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="birth-cow">Fecha: </label>
+                    <p-calendar [monthNavigator]="true" [(ngModel)]="obs.observationDate"
+                        placeholder="Fecha de ejecución" [yearNavigator]="true" yearRange="2000:2021"
+                        inputId="birth-cow" dateFormat="yy-mm-dd"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !obs.observationDate}">
+                    </p-calendar>
+                    <small class="p-error" *ngIf="submitted && !obs.observationDate">Campo requerido</small>
+                </div>
+
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="price-cow">Costo: </label>
+                    <p-inputNumber placeholder="Costo de observación" [(ngModel)]="obs.observationPrice"
+                        [showButtons]="true" [min]="0" [max]="5000" [step]="5" inputId="price-cow" mode="currency"
+                        currency="USD" [ngClass]="{'ng-invalid ng-dirty': submitted && !obs.observationPrice}">
+                    </p-inputNumber>
+                    <small class="p-error" *ngIf="submitted && !obs.observationPrice">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12">
+                    <label for="cow-des">Descripción: </label>
+                    <textarea id="cow-des" [(ngModel)]="obs.observationDescription"
+                        placeholder="Observación y/o descripción de la observación" pInputTextarea></textarea>
+                </div>
+
+            </div>
+            <p-footer>
+                <button pButton pRipple icon="pi pi-save" type="button" (click)="onSave()"
+                    label="{{setting.titleButton}}" class="p-button-primary p-col-12 p-md-2  p-mx-1 p-my-1"></button>
+                <button pButton pRipple (click)="onCancel()" icon="pi pi-times" type="button" label="Cancelar"
+                    class="p-button-danger p-col-12 p-md-2 p-mx-1 p-my-1"></button>
+            </p-footer>
+        </p-panel>
+    </div>
+
+</div>

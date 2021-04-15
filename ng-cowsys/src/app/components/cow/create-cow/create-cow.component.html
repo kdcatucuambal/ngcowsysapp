@@ -1,0 +1,102 @@
+<!-- <div class="container">
+    <ng-template pTemplate="content">
+        <div class="p-grid p-field">
+            <div class="p-col-6">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" required autofocus />
+
+            </div>
+            <div class="p-col-6">
+                <label for="lastname">Apellido</label>
+                <input type="text" pInputText id="lastname" required />
+
+            </div>
+        </div>
+        <div class="p-field">
+            <label for="email">Correo</label>
+            <input type="email" pInputText id="email" required />
+
+        </div>
+        <div class="p-field">
+            <label for="pass">Contraseña</label>
+            <input type="password" pInputText id="pass" required />
+
+        </div>
+        <div class="p-field">
+            <label for="pass-confirm">Confirmación</label>
+            <input type="password" pInputText id="pass-confirm" required />
+
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Guardar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</div> -->
+<app-menu></app-menu>
+<div class="container p-d-flex p-jc-center p-pt-6">
+    <div class="p-col-12 p-lg-8">
+        <p-panel>
+            <p-header>
+                {{setting.title}}
+            </p-header>
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="name-cow">Nombre: </label>
+                    <input id="name-cow" [(ngModel)]="cow.cowName" type="text" placeholder="Nombre de la vaca"
+                        pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty': submitted && !cow.cowName}">
+                    <small class="p-error" *ngIf="submitted && !cow.cowName">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="race-cow">Raza: </label>
+                    <input id="race-cow" [(ngModel)]="cow.cowRace" type="text" placeholder="Raza de la vaca" pInputText
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !cow.cowRace}">
+                    <small class="p-error" *ngIf="submitted && !cow.cowRace">Campo requerido</small>
+                </div>
+                <div class=" p-field p-col-12 p-lg-6">
+                    <label for="birth-cow">Nacimiento: </label>
+                    <p-calendar [monthNavigator]="true" [(ngModel)]="cow.cowBirthDate" placeholder="Fecha de nacimiento"
+                        [yearNavigator]="true" yearRange="2000:2021" inputId="birth-cow" dateFormat="yy-mm-dd"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !cow.cowBirthDate}">
+                    </p-calendar>
+                    <small class="p-error" *ngIf="submitted && !cow.cowBirthDate">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="buy-cow">Adquisición: </label>
+                    <p-calendar placeholder="Fecha de compra" [(ngModel)]="cow.cowBuyDate" [monthNavigator]="true"
+                        [yearNavigator]="true" yearRange="2000:2021" inputId="buy-cow" dateFormat="yy-mm-dd"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !cow.cowBuyDate}">
+                    </p-calendar>
+                    <small class="p-error" *ngIf="submitted && !cow.cowBuyDate">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="price-cow">Precio: </label>
+                    <p-inputNumber placeholder="Precio de compra" [(ngModel)]="cow.cowPrice" [showButtons]="true"
+                        [min]="0" [max]="5000" [step]="5" inputId="price-cow" mode="currency" currency="USD"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !cow.cowPrice}">
+                    </p-inputNumber>
+                    <small class="p-error" *ngIf="submitted && !cow.cowPrice">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="imagen-cow">Imagen(URL): </label>
+                    <input id="image-cow" [(ngModel)]="cow.cowImage" placeholder="Imagen URL de la vaca" type="text"
+                        pInputText>
+                </div>
+                <div class="p-field p-col-12">
+                    <label for="cow-des">Descripción: </label>
+                    <textarea id="cow-des" [(ngModel)]="cow.cowDescription"
+                        placeholder="Observación y/o descripción de la vaca" pInputTextarea></textarea>
+                </div>
+
+            </div>
+            <p-footer>
+                <button pButton pRipple icon="pi pi-save" type="button" (click)="onSave()"
+                    label="{{setting.titleButton}}" class="p-button-primary p-col-12 p-md-2  p-mx-1 p-my-1"></button>
+                <button pButton pRipple (click)="onCancel()" icon="pi pi-times" type="button" label="Cancelar"
+                    class="p-button-danger p-col-12 p-md-2 p-mx-1 p-my-1"></button>
+            </p-footer>
+        </p-panel>
+    </div>
+
+
+</div>

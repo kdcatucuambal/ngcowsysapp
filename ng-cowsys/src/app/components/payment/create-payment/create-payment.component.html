@@ -1,0 +1,116 @@
+<app-menu></app-menu>
+<p-toast></p-toast>
+<div class="container p-d-flex p-jc-center p-pt-6">
+    <div class="p-col-8">
+        <p-panel>
+            <p-header>
+                {{setting.title}}
+            </p-header>
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="date">Fecha de pago: </label>
+                    <p-calendar *ngIf="!setting.view" [monthNavigator]="true" [(ngModel)]="pay.paymentDate"
+                        placeholder="Fecha de ejecución" [yearNavigator]="true" yearRange="2000:2021" inputId="date"
+                        dateFormat="yy-mm-dd" [ngClass]="{'ng-invalid ng-dirty': submitted && !pay.paymentDate}">
+                    </p-calendar>
+                    <input *ngIf="setting.view" readonly [(ngModel)]="pay.paymentDate" type="text" pInputText />
+                    <small class="p-error" *ngIf="submitted && !pay.paymentDate">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="price">Precio Leche (c/l): </label>
+                    <p-inputNumber *ngIf="!setting.view" placeholder="Costo de leche por litro"
+                        [(ngModel)]="pay.paymentLiterValue" [showButtons]="true" [min]="0" [max]="1" [step]="0.01"
+                        inputId="price" mode="currency" currency="USD" (onInput)="onInput()"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !pay.paymentLiterValue}">
+                    </p-inputNumber>
+                    <input *ngIf="setting.view" readonly [(ngModel)]="pay.paymentLiterValue" type="text" pInputText />
+                    <small class="p-error" *ngIf="submitted && !pay.paymentLiterValue">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="fromDate">Pago del: </label>
+                    <p-calendar *ngIf="!setting.view" [monthNavigator]="true" [(ngModel)]="pay.paymentFromDate"
+                        placeholder="Desde la fecha.." [yearNavigator]="true" yearRange="2000:2021"
+                        (onSelect)="onSelect()" inputId="fromDate" dateFormat="yy-mm-dd"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !pay.paymentFromDate}">
+                    </p-calendar>
+                    <input *ngIf="setting.view" readonly [(ngModel)]="pay.paymentFromDate" type="text" pInputText />
+                    <small class="p-error" *ngIf="submitted && !pay.paymentFromDate">Campo requerido</small>
+                </div>
+                <div class="p-field p-col-12 p-lg-6">
+                    <label for="toDate">Hasta el: </label>
+                    <p-calendar *ngIf="!setting.view" [monthNavigator]="true" [(ngModel)]="pay.paymentToDate"
+                        placeholder="..hasta la fecha" [yearNavigator]="true" yearRange="2000:2021"
+                        (onSelect)="onSelect()" inputId="toDate" dateFormat="yy-mm-dd"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !pay.paymentToDate}">
+                    </p-calendar>
+                    <input *ngIf="setting.view" readonly [(ngModel)]="pay.paymentToDate" type="text" pInputText />
+                    <small class="p-error" *ngIf="submitted && !pay.paymentToDate">Campo requerido</small>
+                </div>
+            </div>
+
+
+            <p-table *ngIf="recs.length > 0" [value]="recs"
+                styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" dataKey="tempRecordId"
+                [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Se muestra del {first} al {last} de {totalRecords} apuntes"
+                [rowsPerPageOptions]="[5,10,25]">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <h4 class="p-m-0">Apuntes de leche</h4>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="p-text-center">#</th>
+                        <th class="p-text-center">Fecha</th>
+                        <th class="p-text-center">Mañana</th>
+                        <th class="p-text-center">Tarde</th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rec let-ri="rowIndex">
+                    <tr>
+                        <td class="p-text-center">{{ri+1}}</td>
+                        <td class="p-text-center">
+                            {{rec.tempRecordDate}}
+                        </td>
+                        <td class="p-text-center">
+                            {{rec.tempRecordMorning}}
+                        </td>
+
+                        <td class="p-text-center">
+                            {{rec.tempRecordAfternoon}}
+                        </td>
+
+
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-footer>
+                <div class="p-grid p-fluid">
+                    <div class="p-col-12">
+                        <h5 class="p-text-right">Litros entregados: <strong>{{pay.paymentTotalLiters}}</strong></h5>
+                    </div>
+                    <div class="p-col-12">
+                        <h5 class="p-text-right">{{setting.pay}}<strong>${{pay.paymentTotal}}</strong></h5>
+                    </div>
+                </div>
+            </p-footer>
+        </p-panel>
+
+        <p-toolbar [style]="{'background-color': 'white'}">
+            <ng-template pTemplate="left">
+                <button *ngIf="!setting.view" pButton pRipple label="Guardar" (click)="onSave()" icon="pi pi-save"
+                    class="p-button-success p-mr-2"></button>
+                <button *ngIf="!setting.view" pButton pRipple label="Cancelar" (click)="onCancel()" icon="pi pi-times"
+                    class="p-button-danger p-mr-2"></button>
+                <button *ngIf="setting.view" pButton pRipple label="Listo" (click)="onCancel()" icon="pi pi-arrow-left"
+                    class="p-button-info p-mr-2"></button>
+            </ng-template>
+
+        </p-toolbar>
+    </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" rejectButtonStyleClass="p-button-primary"
+    acceptButtonStyleClass="p-button-info">
+</p-confirmDialog>

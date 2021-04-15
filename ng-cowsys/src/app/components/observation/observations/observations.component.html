@@ -1,0 +1,68 @@
+<app-menu></app-menu>
+<p-toast></p-toast>
+<div class="container p-mt-4">
+
+    <div class="p-shadow-2 p-mx-0 p-px-0">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Agregar Observación" [routerLink]="['/observations-create']"
+                    icon="pi pi-plus" class="p-button-success p-mr-2"></button>
+            </ng-template>
+        </p-toolbar>
+
+        <p-table [value]="obs" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true"
+            [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Se muestra del {first} al {last} de {totalRecords} observaciones"
+            [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h4 class="p-m-0">Observaciones de tus vacas</h4>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #box (keyup.enter)="onEnter(box.value)" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="p-text-center">#</th>
+                    <th class="p-text-center">Fecha</th>
+                    <th class="p-text-center">Vaca</th>
+                    <th class="p-text-center">Tipo</th>
+                    <th class="p-text-center">Costo</th>
+                    <th class="p-text-center">Opciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ob let-ri="rowIndex">
+                <tr>
+                    <td class="p-text-center">{{ri+1}}</td>
+                    <td class="p-text-center">
+                        {{ob.observationDate}}
+                    </td>
+                    <td class="p-text-center">
+                        {{ob.cow.cowName}}
+                    </td>
+
+                    <td class="p-text-center">
+                        {{ob.type.typeName}}
+                    </td>
+
+                    <td class="p-text-center">
+                        {{ob.observationPrice}}
+                    </td>
+
+                    <td class="p-text-center">
+                        <button pButton pRipple icon="pi pi-pencil"
+                            [routerLink]="['/observations-edit', ob.observationId]"
+                            class="p-button-success p-ml-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" (click)="onDelete(ob.observationId)"
+                            class="p-button-danger p-ml-2"></button>
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger">
+</p-confirmDialog>

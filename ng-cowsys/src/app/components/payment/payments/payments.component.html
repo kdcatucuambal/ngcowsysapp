@@ -1,0 +1,68 @@
+<app-menu></app-menu>
+<p-toast></p-toast>
+<div class="container p-mt-4">
+
+    <div class="p-shadow-2 p-mx-0 p-px-0">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Crear Pago" [routerLink]="['/payments-create']" icon="pi pi-plus"
+                    class="p-button-success p-mr-2"></button>
+            </ng-template>
+        </p-toolbar>
+
+        <p-table [value]="pays" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true"
+            [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Se muestra del {first} al {last} de {totalRecords} pagos"
+            [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h4 class="p-m-0">Estos son tus pagos</h4>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #box (keyup.enter)="onEnter(box.value)" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="p-text-center">#</th>
+                    <th class="p-text-center">Id</th>
+                    <th class="p-text-center">Fecha pago</th>
+                    <th class="p-text-center">Litros</th>
+                    <th class="p-text-center">Valor c/l</th>
+                    <th class="p-text-center">Pago total</th>
+                    <th class="p-text-center">Eliminar</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-p let-ri="rowIndex">
+                <tr>
+                    <td class="p-text-center">{{ri+1}}</td>
+                    <td class="p-text-center">
+                        <button pButton pRipple [label]="p.paymentId" [routerLink]="['/payments-view', p.paymentId]"
+                            class="p-button-info p-col-6 p-button-sm p-py-1"></button>
+
+                    </td>
+                    <td class="p-text-center">
+                        {{p.paymentDate}}
+                    </td>
+                    <td class="p-text-center">
+                        {{p.paymentTotalLiters}}
+                    </td>
+                    <td class="p-text-center">
+                        {{p.paymentLiterValue}}
+                    </td>
+                    <td class="p-text-center">
+                        {{p.paymentTotal}}
+                    </td>
+                    <td class="p-text-center">
+                        <button pButton pRipple icon="pi pi-trash" (click)="onDelete(p.paymentId)"
+                            class="p-button-danger p-ml-2"></button>
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger">
+</p-confirmDialog>
