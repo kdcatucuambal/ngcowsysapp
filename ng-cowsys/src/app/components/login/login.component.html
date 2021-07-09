@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="p-d-flex p-jc-center p-pt-6">
-    <div class="p-col-12 p-sm-12 p-md-8 p-lg-7 p-xl-4">
+    <div class="p-col-12 p-sm-12 p-md-8 p-lg-7 p-xl-5">
         <p-card class="p-text-center" header="INICIAR SESIÓN" subheader="ADMINISTRACIÓN DE VACAS" styleClass="p-card-shadow">
             <ng-template pTemplate="header">
                 <img alt="Card" src="https://wallpapercave.com/wp/wp2381382.jpg">
@@ -24,7 +24,7 @@
                     <button (click)="onLogin()" icon="pi pi-check" iconPos="left" pButton pRipple type="button" label="Acceder" class="p-button-primary"></button>
                 </div>
                 <div class="p-field p-col-6">
-                    <button pButton pRipple type="button" label="¿Olvidó su contraseña?" class="p-button-link"></button>
+                    <button pButton pRipple type="button" label="¿Olvidó su contraseña?" disabled class="p-button-link"></button>
                 </div>
                 <div class="p-field p-col-6">
                     <button (click)="openNewUser()" pButton pRipple type="button" label="Registrarse" class="p-button-link"></button>

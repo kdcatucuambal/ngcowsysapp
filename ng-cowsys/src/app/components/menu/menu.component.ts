@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
-  providers: []
+  providers: [],
 })
 export class MenuComponent implements OnInit {
-
-  items: MenuItem[]
+  items: MenuItem[];
   itemsUser: MenuItem[];
   userName: string;
-  constructor(private _authService: AuthService,) {
+  constructor(private _authService: AuthService) {
     this.userName = this._authService.userNameValue;
   }
 
@@ -31,53 +30,53 @@ export class MenuComponent implements OnInit {
       {
         label: 'Apuntes',
         icon: 'pi pi-calendar-plus',
-        routerLink: ['/records']
+        routerLink: ['/records'],
       },
       {
         label: 'Pagos',
         icon: 'pi pi-credit-card',
-        routerLink: ['/payments']
+        routerLink: ['/payments'],
       },
       {
         label: 'Observaciones',
         icon: 'pi pi-eye',
-        routerLink: ['/observations']
+        routerLink: ['/observations'],
       },
       {
         label: 'Compras',
         icon: 'pi pi-shopping-cart',
-      }
-      ,
+        disabled: true,
+      },
       {
         label: 'Productos',
         icon: 'pi pi-th-large',
+        disabled: true,
       },
       {
         label: 'Tipos Obs.',
         icon: 'pi pi-slack',
-      }
+        disabled: true,
+      },
     ];
-
 
     this.itemsUser = [
       {
-        label: 'Mi cuenta', icon: 'pi pi-user-edit', command: () => {
-
-        }
+        label: 'Mi cuenta',
+        disabled: true,
+        icon: 'pi pi-user-edit',
+        command: () => {},
       },
       {
-        label: 'Cerrar Sesión', icon: 'pi pi-sign-out', command: () => {
+        label: 'Cerrar Sesión',
+        icon: 'pi pi-sign-out',
+        command: () => {
           this.onLogout();
-        }
+        },
       },
     ];
-
   }
 
   onLogout(): void {
     this._authService.logout();
   }
-
-
-
 }

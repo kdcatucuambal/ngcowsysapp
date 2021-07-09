@@ -1,29 +1,27 @@
 <app-menu></app-menu>
 <div class="p-grid p-mx-3 p-my-3">
-    <div class="p-col-12 p-md-6">
-        <div class="card p-shadow-5">
-            <h6 class="text-center">Productos más comprados</h6>
-            <p-chart type="pie" [data]="data"></p-chart>
-        </div>
-
+  <div class="p-col-12 p-md-6">
+    <div class="card p-shadow-5">
+      <h6 class="text-center">Últimas entregas de leche en litros</h6>
+      <p-chart type="bar" [data]="basicData" [options]="options"></p-chart>
     </div>
-    <div class="p-col-12 p-md-6">
-        <div class="card p-shadow-5">
-            <h6 class="text-center">Últimas entregas de leche en litros</h6>
-            <p-chart type="bar" [data]="basicData" [options]="options"></p-chart>
-        </div>
-
+  </div>
+  <div class="p-col-12 p-md-6">
+    <div class="card p-shadow-5">
+      <h6 class="text-center">Pagos recibidos</h6>
+      <p-chart type="bar" [data]="payData"></p-chart>
     </div>
-    <div class="p-col-12 p-md-6">
-        <div class="card p-shadow-5">
-            <h6 class="text-center">Pagos recibidos</h6>
-            <p-chart type="bar" [data]="payData"></p-chart>
-        </div>
+  </div>
+  <div class="p-col-12 p-md-6">
+    <div class="card p-shadow-5">
+      <h6 class="text-center">Observaciones(Demo)</h6>
+      <p-chart type="doughnut" [data]="obsData"></p-chart>
     </div>
-    <div class="p-col-12 p-md-6">
-        <div class="card p-shadow-5">
-            <h6 class="text-center">Observaciones</h6>
-            <p-chart type="doughnut" [data]="obsData"></p-chart>
-        </div>
+  </div>
+  <div class="p-col-12 p-md-6">
+    <div class="card p-shadow-5">
+      <h6 class="text-center">Productos más comprados(demo)</h6>
+      <p-chart type="pie" [data]="data"></p-chart>
     </div>
+  </div>
 </div>
